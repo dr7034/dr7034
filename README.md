@@ -1,8 +1,6 @@
-## Hi there 👋
+## Hello 👋
 
 <!-- WIDGET_START -->
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=dr7034&show_icons=true&theme=radical)
 
 [![Activity graph](https://github-readme-activity-graph.vercel.app/graph?username=dr7034&theme=dracula)](https://github.com/ashutosh00710/github-readme-activity-graph)
 ---
