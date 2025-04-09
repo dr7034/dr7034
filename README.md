@@ -4,8 +4,7 @@
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=dr7034&show_icons=true&theme=radical)
 
-[![Readme Activity](https://github-readme-activity-graph.cyclic.app/graph?username=dr7034&theme=github-compact)](https://github.com/Ashutosh00710/github-readme-activity-graph)
-
+[![Activity graph](https://github-readme-activity-graph.vercel.app/graph?username=dr7034&theme=dracula)](https://github.com/ashutosh00710/github-readme-activity-graph)
 ---
 
 ## Tech Stack
