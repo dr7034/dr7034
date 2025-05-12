@@ -2,13 +2,11 @@
 
 <!-- WIDGET_START -->
 
-I'm an engineering leader with extensive experience across startups, scale-ups, and enterprises. Proven track record of owning technical direction, scaling organisations, and driving platforms through exponential growth phases. Removing operational bottlenecks and empowering ICs to take ownership of their delivery and growth trajectory.
+I'm an engineering leader with experience across startups, scale-ups, and enterprises. I own technical direction, organisation scaling, and driving platforms through exponential growth phases. I remove operational bottlenecks and empower ICs to take ownership of their delivery and growth trajectory.
 
-I've led platform rebuilds, built scalable infrastructure, and integrated key performance metrics to improve delivery speed and reliability. My approach is rooted in developer efficiency, reducing drag, and fostering high-performing teams with a deep sense of ownership.
+I've led platform builds and rebuilds, built scalable infrastructure, and integrated key performance metrics to improve delivery speed and reliability. My approach is rooted in developer efficiency, reducing drag, and fostering high-performing teams with a deep sense of ownership.
 
-With a CTO mindset, I focus on building sustainable delivery cadences, leading cross-functional teams, and driving continuous improvement through agile processes and incident response practices. 
-
-Currently investing in systems, tools, and processes that reduce drag and increase the reach of a lean, high-performing team.
+I focus on building sustainable delivery cadences, leading cross-functional teams, and driving continuous improvement through agile processes and incident response practices. 
 
 ---
 
