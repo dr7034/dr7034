@@ -10,7 +10,6 @@ With a CTO mindset, I focus on building sustainable delivery cadences, leading c
 
 Currently investing in systems, tools, and processes that reduce drag and increase the reach of a lean, high-performing team.
 
-[![Activity graph](https://github-readme-activity-graph.vercel.app/graph?username=dr7034&theme=dracula)](https://github.com/ashutosh00710/github-readme-activity-graph)
 ---
 
 ## Tech Stack
