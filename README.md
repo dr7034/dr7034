@@ -23,6 +23,10 @@ I’m Daniel, an engineering leader who scales teams, platforms, and execution. 
 - Architecting modular platforms with strong developer experience and operational safety  
 - Driving visibility across cost, productivity, and engineering ROI to guide growth
 
+### Writing
+
+I publish essays on engineering leadership, system design, and delivery operations at [blog.danielreilly.dev](https://blog.danielreilly.dev).
+
 ---
 
 ## Tech Stack
