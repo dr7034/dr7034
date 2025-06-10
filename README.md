@@ -25,7 +25,8 @@ I’m Daniel, an engineering leader who scales teams, platforms, and execution. 
 
 ### Writing
 
-I publish essays on engineering leadership, system design, and delivery operations at [blog.danielreilly.dev](https://blog.danielreilly.dev).
+I publish essays on engineering leadership, system design, and delivery operations at  
+<a href="https://blog.danielreilly.dev" target="_blank" rel="noopener noreferrer">blog.danielreilly.dev</a>.
 
 ---
 
