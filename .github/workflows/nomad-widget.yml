@@ -2,7 +2,7 @@ name: Update README Widget
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Hourly
+    - cron: '0 * * * *'  # Runs hourly; adjust as needed
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Fetch API data and update README
+      - name: Fetch API data and create widget
         run: |
           set -e
           json=$(curl -s "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d")
@@ -31,8 +31,8 @@ jobs:
 
           countries=$(echo "$json" | jq -r '.stats.countries')
           cities=$(echo "$json" | jq -r '.stats.cities')
-          km=$(echo "$json" | jq -r '.stats.distance_traveled_km')
-          mi=$(echo "$json" | jq -r '.stats.distance_traveled_miles')
+          distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km')
+          distanceMi=$(echo "$json" | jq -r '.stats.distance_traveled_miles')
           mostCity=$(echo "$json" | jq -r '.stats.most_visited.city')
           mostCount=$(echo "$json" | jq -r '.stats.most_visited.count')
           longestCity=$(echo "$json" | jq -r '.stats.longest_stay.city')
@@ -40,31 +40,26 @@ jobs:
 
           mapLink="https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d"
 
-          cat <<EOF > widget.md
-### 🌍 Where am I?
+          echo "### 🌍 Where am I?" > widget.md
+          echo "" >> widget.md
+          echo "**📍 Currently in:** $currentCity, $currentCountry  " >> widget.md
+          echo "**🛫 Next:** $nextCity, $nextCountry — *$nextStart–$nextEnd*  " >> widget.md
+          echo "**🛬 Last:** $lastCity, $lastCountry — *$lastStart–$lastEnd*  " >> widget.md
+          echo "" >> widget.md
+          echo "---" >> widget.md
+          echo "" >> widget.md
+          echo "**🧭 Stats**  " >> widget.md
+          echo "- **Countries visited:** $countries" >> widget.md
+          echo "- **Cities visited:** $cities" >> widget.md
+          echo "- **Distance traveled:** $distanceKm km / $distanceMi mi" >> widget.md
+          echo "- **Most visited city:** $mostCity ($mostCount trips)" >> widget.md
+          echo "- **Longest stay:** $longestCity — $longestDays days" >> widget.md
+          echo "" >> widget.md
+          echo "---" >> widget.md
+          echo "" >> widget.md
+          echo "**🗺 Map:** [View Nomads Travel Map]($mapLink)" >> widget.md
 
-**📍 Currently in:** $currentCity, $currentCountry  
-**🛫 Next:** $nextCity, $nextCountry — *$nextStart–$nextEnd*  
-**🛬 Last:** $lastCity, $lastCountry — *$lastStart–$lastEnd*
-
----
-
-**🧭 Stats**  
-- **Countries visited:** $countries  
-- **Cities visited:** $cities  
-- **Distance traveled:** $km km / $mi mi  
-- **Most visited city:** $mostCity ($mostCount trips)  
-- **Longest stay:** $longestCity — $longestDays days
-
----
-
-**🗺 Map:** [View Nomads Travel Map]($mapLink)
-EOF
-
-          awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in=1; next }
-               /<!-- WIDGET_END -->/ { print; in=0; next }
-               !in { print }' README.md > temp.md
-
+          awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
 
       - name: Commit changes
@@ -72,9 +67,11 @@ EOF
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          if git diff --quiet; then
-            echo "No changes"
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
           else
             git commit -m "Update dynamic widget"
-            git push
+            git push origin HEAD:${{ github.ref }}
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
