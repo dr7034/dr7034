@@ -20,15 +20,15 @@ jobs:
           currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown City"')
           currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown Country"')
 
-          nextCity=$(echo "$json" | jq -r '.location.next[0].city // "None"')
-          nextCountry=$(echo "$json" | jq -r '.location.next[0].country // ""')
-          nextStart=$(echo "$json" | jq -r '.location.next[0].date_start // ""')
-          nextEnd=$(echo "$json" | jq -r '.location.next[0].date_end // ""')
+          nextCity=$(echo "$json" | jq -r '.location.next.city // "None"')
+          nextCountry=$(echo "$json" | jq -r '.location.next.country // ""')
+          nextStart=$(echo "$json" | jq -r '.location.next.date_start // ""')
+          nextEnd=$(echo "$json" | jq -r '.location.next.date_end // ""')
 
-          lastCity=$(echo "$json" | jq -r '.location.last[0].city // "None"')
-          lastCountry=$(echo "$json" | jq -r '.location.last[0].country // ""')
-          lastStart=$(echo "$json" | jq -r '.location.last[0].date_start // ""')
-          lastEnd=$(echo "$json" | jq -r '.location.last[0].date_end // ""')
+          lastCity=$(echo "$json" | jq -r '.location.last.city // "None"')
+          lastCountry=$(echo "$json" | jq -r '.location.last.country // ""')
+          lastStart=$(echo "$json" | jq -r '.location.last.date_start // ""')
+          lastEnd=$(echo "$json" | jq -r '.location.last.date_end // ""')
 
           cities=$(echo "$json" | jq -r '.stats.cities // 0')
           countries=$(echo "$json" | jq -r '.stats.countries // 0')
@@ -53,10 +53,24 @@ jobs:
           longestCityName=$(echo "$longestCity" | cut -d'|' -f1 | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
           longestCityDays=$(echo "$longestCity" | cut -d'|' -f2 | xargs)
 
-          echo "#### 🌍 Where am I?" > widget.md
+          now=$(date -u +"%Y-%m-%d")
+          smartTrip=$(python3 -c "
+import datetime
+now = datetime.date.fromisoformat('$now')
+future = datetime.date.fromisoformat('$nextStart')
+delta = (future - now).days
+if delta == 0:
+  print('today')
+elif delta == 1:
+  print('tomorrow')
+else:
+  print(f'in {delta} days')
+")
+
+          echo "### 🌍 Where am I?" > widget.md
           echo "" >> widget.md
           echo "**📍 Currently in:** $currentCity, $currentCountry" >> widget.md
-          echo "**🛫 Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}*" >> widget.md
+          echo "**🛫 Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}* ($smartTrip)" >> widget.md
           echo "**🛬 Last:** $lastCity, $lastCountry — *${lastStart}–${lastEnd}*" >> widget.md
           echo "" >> widget.md
           echo "**🧭 Stats**" >> widget.md
