@@ -20,46 +20,50 @@ jobs:
           json=$(curl -s "$NOMAD_URL")
 
           currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown"')
-          currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown"')
+          currentCountryCode=$(echo "$json" | jq -r '.location.now.country_code // ""')
 
           nextCity=$(echo "$json" | jq -r '.location.next.city // "Unknown"')
-          nextCountry=$(echo "$json" | jq -r '.location.next.country // ""')
+          nextCountryCode=$(echo "$json" | jq -r '.location.next.country_code // ""')
           nextStart=$(echo "$json" | jq -r '.location.next.date_start // ""')
           nextEnd=$(echo "$json" | jq -r '.location.next.date_end // ""')
 
           lastCity=$(echo "$json" | jq -r '.location.previous.city // "Unknown"')
-          lastCountry=$(echo "$json" | jq -r '.location.previous.country // ""')
+          lastCountryCode=$(echo "$json" | jq -r '.location.previous.country_code // ""')
           lastStart=$(echo "$json" | jq -r '.location.previous.date_start // ""')
           lastEnd=$(echo "$json" | jq -r '.location.previous.date_end // ""')
 
-          cities=$(echo "$json" | jq -r '.stats.cities // 0')
           countries=$(echo "$json" | jq -r '.stats.countries // 0')
+          cities=$(echo "$json" | jq -r '.stats.cities // 0')
           distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
           distanceMiles=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
 
-          mostCity=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | .[1] | "\(.key) \(.value)"')
+          mostCity=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | .[0] | "\(.key) \(.value)"')
           mostCityName=$(echo "$mostCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
           mostCityTrips=$(echo "$mostCity" | cut -d' ' -f2)
 
-          longestCity=$(echo "$json" | jq -r '.longest_stays | to_entries | sort_by(-.value) | .[1] | "\(.key) \(.value)"')
+          longestCity=$(echo "$json" | jq -r '.longest_stays | to_entries | sort_by(-.value) | .[0] | "\(.key) \(.value)"')
           longestCityName=$(echo "$longestCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
           longestCityDays=$(echo "$longestCity" | cut -d' ' -f2)
 
-          echo "### 🌍 Where am I?" > widget.md
+          nextRange=$(date -d "$nextStart" '+%b %-d')–$(date -d "$nextEnd" '+%-d')
+          lastRange=$(date -d "$lastStart" '+%b %-d')–$(date -d "$lastEnd" '+%-d')
+
+          echo "#### 🌍 Travel Summary: @danielreilly" > widget.md
           echo "" >> widget.md
-          echo "📍 Currently in: $currentCity, $currentCountry" >> widget.md
-          echo "🛫 Next: $nextCity, $nextCountry — $nextStart–$nextEnd" >> widget.md
-          echo "🛬 Last: $lastCity, $lastCountry — $lastStart–$lastEnd" >> widget.md
+          echo "**📍 Currently in:** $currentCity, $currentCountryCode  " >> widget.md
+          echo "**🛫 Next:** $nextCity, $nextCountryCode — *$nextRange*  " >> widget.md
+          echo "**🛬 Last:** $lastCity, $lastCountryCode — *$lastRange*" >> widget.md
           echo "" >> widget.md
-          echo "🧭 Stats" >> widget.md
+          echo "---" >> widget.md
           echo "" >> widget.md
-          echo "Countries visited: $countries" >> widget.md
-          echo "Cities visited: $cities" >> widget.md
-          echo "Distance traveled: $distanceKm km / $distanceMiles mi" >> widget.md
-          echo "Most visited city: $mostCityName ($mostCityTrips trips)" >> widget.md
-          echo "Longest stay: $longestCityName — $longestCityDays days" >> widget.md
+          echo "**🧭 Stats**  " >> widget.md
+          echo "- **Countries visited:** $countries  " >> widget.md
+          echo "- **Cities visited:** $cities  " >> widget.md
+          echo "- **Distance traveled:** ${distanceKm} km / ${distanceMiles} mi  " >> widget.md
+          echo "- **Most visited city:** $mostCityName ($mostCityTrips trips)  " >> widget.md
+          echo "- **Longest stay:** $longestCityName — $longestCityDays days" >> widget.md
           echo "" >> widget.md
-          echo "🗺 Map: [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)" >> widget.md
+          echo "**🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)" >> widget.md
 
           awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
