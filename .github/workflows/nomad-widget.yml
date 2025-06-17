@@ -32,12 +32,12 @@ jobs:
           nextStart=$(echo "$json" | jq -r '
             (.location.next // []) 
             | (if type == "object" then [.] else . end)
-            | if length > 0 then .[0].start_date else "" end
+            | if length > 0 then .[0].date_start else "" end
           ')
           nextEnd=$(echo "$json" | jq -r '
             (.location.next // []) 
             | (if type == "object" then [.] else . end)
-            | if length > 0 then .[0].end_date else "" end
+            | if length > 0 then .[0].date_end else "" end
           ')
 
           lastCity=$(echo "$json" | jq -r '
@@ -53,57 +53,30 @@ jobs:
           lastStart=$(echo "$json" | jq -r '
             (.location.previous // []) 
             | (if type == "object" then [.] else . end)
-            | if length > 0 then .[0].start_date else "" end
+            | if length > 0 then .[0].date_start else "" end
           ')
           lastEnd=$(echo "$json" | jq -r '
             (.location.previous // []) 
             | (if type == "object" then [.] else . end)
-            | if length > 0 then .[0].end_date else "" end
+            | if length > 0 then .[0].date_end else "" end
           ')
 
           countries=$(echo "$json" | jq -r '.stats.countries // 0')
           cities=$(echo "$json" | jq -r '.stats.cities // 0')
           distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
           distanceMi=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
-          mostCity=$(echo "$json" | jq -r '.stats.most_visited.city // "Unknown"')
-          mostCount=$(echo "$json" | jq -r '.stats.most_visited.count // 0')
-          longestCity=$(echo "$json" | jq -r '.stats.longest_stay.city // "Unknown"')
-          longestDays=$(echo "$json" | jq -r '.stats.longest_stay.days // 0')
 
-          mapLink="https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d"
-
-          echo "### 🌍 Where am I?" > widget.md
-          echo "" >> widget.md
-          echo "**📍 Currently in:** $currentCity, $currentCountry  " >> widget.md
-          echo "**🛫 Next:** $nextCity${nextCountry:+, $nextCountry} — *$nextStart–$nextEnd*  " >> widget.md
-          echo "**🛬 Last:** $lastCity${lastCountry:+, $lastCountry} — *$lastStart–$lastEnd*  " >> widget.md
-          echo "" >> widget.md
-          echo "---" >> widget.md
-          echo "" >> widget.md
-          echo "**🧭 Stats**  " >> widget.md
-          echo "- **Countries visited:** $countries" >> widget.md
-          echo "- **Cities visited:** $cities" >> widget.md
-          echo "- **Distance traveled:** $distanceKm km / $distanceMi mi" >> widget.md
-          echo "- **Most visited city:** $mostCity ($mostCount trips)" >> widget.md
-          echo "- **Longest stay:** $longestCity — $longestDays days" >> widget.md
-          echo "" >> widget.md
-          echo "---" >> widget.md
-          echo "" >> widget.md
-          echo "**🗺 Map:** [View Nomads Travel Map]($mapLink)" >> widget.md
-
-          awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
-          mv temp.md README.md
-
-      - name: Commit changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          if git diff-index --quiet HEAD; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update dynamic widget"
-            git push origin HEAD:${{ github.ref }}
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mostCity=$(echo "$json" | jq -r '
+            .frequent_visits 
+            | to_entries 
+            | sort_by(-.value) 
+            | if length > 1 then .[1].key else "Unknown" end
+            | gsub("-"; " ") 
+            | split(" ") 
+            | map(.[0:1] | ascii_upcase + .[1:]) 
+            | join(" ")
+          ')
+          mostCount=$(echo "$json" | jq -r '
+            .frequent_visits 
+            | to_entries 
+            | sort_by_
