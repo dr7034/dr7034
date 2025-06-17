@@ -51,39 +51,22 @@ Open to:
 
 ---
 <!-- WIDGET_START -->
-## Dynamic Widget
+### 🌍 Where am I?
 
-![Profile Photo](https://nomads.com/cdn-cgi/image/format=auto,fit=cover,width=500,height=500https://r2.nomads.com/profile_photos/cbf499be1aac6f1c444e387f6cbbb76a.jpg)
+**📍 Currently in:** Glasgow, United Kingdom  
+**🛫 Next:** Manchester, United Kingdom — *null–null*  
+**🛬 Last:** Athens, Greece — *null–null*  
 
-**Username:** @danielreilly  
-**Current Location:** Glasgow, United Kingdom  
-**Next Location:** Manchester, United Kingdom  
+---
 
-**Stats:**  
-  - Cities Visited: 39
-  - Countries Visited: 12
-  - Distance Traveled: 286965 km / 178312 miles
+**🧭 Stats**  
+- **Countries visited:** 12
+- **Cities visited:** 39
+- **Distance traveled:** 286965 km / 178312 mi
+- **Most visited city:** Unknown (0 trips)
+- **Longest stay:** Unknown — 0 days
 
-**Frequent Visits:**  
-  - Glasgow united kingdom: 49
-  - New york city ny united states: 15
-  - London united kingdom: 9
-  - San francisco ca united states: 6
-  - Barcelona spain: 5
-  - Edinburgh united kingdom: 4
-  - Phoenix az united states: 3
-  - Baltimore md united states: 2
-  - Paris france: 1
-  - Amsterdam netherlands: 1
-  - Dublin ireland: 1
-  - Mallorca spain: 1
-  - Lisbon portugal: 1
-  - Tbilisi georgia: 1
-  - Nassau the bahamas: 1
-  - Las vegas nv united states: 1
-  - Istanbul turkey: 1
-  - Tenerife canary islands spain: 1
-  - Athens greece: 1
+---
 
-![Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d&width=1200&height=600&wait_until_dom=true&cachebuster=2025-06)
+**🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)
 <!-- WIDGET_END -->
