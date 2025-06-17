@@ -20,7 +20,18 @@ jobs:
           photo=$(echo "$json" | jq -r '.photo // "https://example.com/default-photo.png"')
           currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown City"')
           currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown Country"')
-          legal=$(echo "$json" | jq -r '.legal // "No legal notice available."')
+          nextCity=$(echo "$json" | jq -r 'if (.location.next | length) > 0 then .location.next[0].city else "No upcoming location" end')
+          nextCountry=$(echo "$json" | jq -r 'if (.location.next | length) > 0 then .location.next[0].country else "" end')
+
+          cities=$(echo "$json" | jq -r '.stats.cities // 0')
+          countries=$(echo "$json" | jq -r '.stats.countries // 0')
+          distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
+          distanceMiles=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
+
+          map=$(echo "$json" | jq -r '.map // ""')
+
+          # Format frequent visits as markdown list
+          frequentVisits=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | map("  - \(.key | gsub("-"; " ") | ascii_downcase | capitalize): \(.value)") | .[]')
 
           echo "## Dynamic Widget" > widget.md
           echo "" >> widget.md
@@ -28,9 +39,17 @@ jobs:
           echo "" >> widget.md
           echo "**Username:** $username  " >> widget.md
           echo "**Current Location:** $currentCity, $currentCountry  " >> widget.md
+          echo "**Next Location:** $nextCity${nextCountry:+, $nextCountry}  " >> widget.md
           echo "" >> widget.md
-          echo "**Legal Notice:**  " >> widget.md
-          echo "$legal" >> widget.md
+          echo "**Stats:**  " >> widget.md
+          echo "  - Cities Visited: $cities" >> widget.md
+          echo "  - Countries Visited: $countries" >> widget.md
+          echo "  - Distance Traveled: $distanceKm km / $distanceMiles miles" >> widget.md
+          echo "" >> widget.md
+          echo "**Frequent Visits:**  " >> widget.md
+          echo "$frequentVisits" >> widget.md
+          echo "" >> widget.md
+          echo "![Map]($map)" >> widget.md
 
           awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
