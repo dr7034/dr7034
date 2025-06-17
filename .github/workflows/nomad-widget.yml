@@ -2,7 +2,7 @@ name: Update README Widget
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs hourly; adjust as needed
+    - cron: '0 * * * *'  # Hourly
   workflow_dispatch:
 
 jobs:
@@ -11,70 +11,60 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Fetch API data and create widget
+      - name: Fetch API data and update README
         run: |
           set -e
           json=$(curl -s "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d")
 
-          username=$(echo "$json" | jq -r '.username // "Unknown User"')
-          photo=$(echo "$json" | jq -r '.photo // "https://example.com/default-photo.png"')
-          currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown City"')
-          currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown Country"')
+          currentCity=$(echo "$json" | jq -r '.location.now.city')
+          currentCountry=$(echo "$json" | jq -r '.location.now.country')
 
-          nextCity=$(echo "$json" | jq -r '
-            (.location.next // []) 
-            | (if type == "object" then [.] else . end)
-            | if length > 0 then .[0].city else "No upcoming location" end
-          ')
-          nextCountry=$(echo "$json" | jq -r '
-            (.location.next // []) 
-            | (if type == "object" then [.] else . end)
-            | if length > 0 then .[0].country else "" end
-          ')
+          nextCity=$(echo "$json" | jq -r '.location.next[0].city')
+          nextCountry=$(echo "$json" | jq -r '.location.next[0].country')
+          nextStart=$(echo "$json" | jq -r '.location.next[0].start_date')
+          nextEnd=$(echo "$json" | jq -r '.location.next[0].end_date')
 
-          cities=$(echo "$json" | jq -r '.stats.cities // 0')
-          countries=$(echo "$json" | jq -r '.stats.countries // 0')
-          distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
-          distanceMiles=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
+          lastCity=$(echo "$json" | jq -r '.location.previous[0].city')
+          lastCountry=$(echo "$json" | jq -r '.location.previous[0].country')
+          lastStart=$(echo "$json" | jq -r '.location.previous[0].start_date')
+          lastEnd=$(echo "$json" | jq -r '.location.previous[0].end_date')
 
-          map=$(echo "$json" | jq -r '.map // ""')
+          countries=$(echo "$json" | jq -r '.stats.countries')
+          cities=$(echo "$json" | jq -r '.stats.cities')
+          km=$(echo "$json" | jq -r '.stats.distance_traveled_km')
+          mi=$(echo "$json" | jq -r '.stats.distance_traveled_miles')
+          mostCity=$(echo "$json" | jq -r '.stats.most_visited.city')
+          mostCount=$(echo "$json" | jq -r '.stats.most_visited.count')
+          longestCity=$(echo "$json" | jq -r '.stats.longest_stay.city')
+          longestDays=$(echo "$json" | jq -r '.stats.longest_stay.days')
 
-          frequentVisits=$(echo "$json" | jq -r '
-            .frequent_visits
-            | to_entries
-            | sort_by(-.value)
-            | map(
-                "  - "
-                + ( .key
-                    | gsub("-"; " ")
-                    | ascii_downcase
-                    | (.[0:1] | ascii_upcase) + (.[1:] )
-                  )
-                + ": "
-                + ( .value | tostring )
-              )
-            | .[]
-          ')
+          mapLink="https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d"
 
-          echo "## Dynamic Widget" > widget.md
-          echo "" >> widget.md
-          echo "![Profile Photo]($photo)" >> widget.md
-          echo "" >> widget.md
-          echo "**Username:** $username  " >> widget.md
-          echo "**Current Location:** $currentCity, $currentCountry  " >> widget.md
-          echo "**Next Location:** $nextCity${nextCountry:+, $nextCountry}  " >> widget.md
-          echo "" >> widget.md
-          echo "**Stats:**  " >> widget.md
-          echo "  - Cities Visited: $cities" >> widget.md
-          echo "  - Countries Visited: $countries" >> widget.md
-          echo "  - Distance Traveled: $distanceKm km / $distanceMiles miles" >> widget.md
-          echo "" >> widget.md
-          echo "**Frequent Visits:**  " >> widget.md
-          echo "$frequentVisits" >> widget.md
-          echo "" >> widget.md
-          echo "![Map]($map)" >> widget.md
+          cat <<EOF > widget.md
+### 🌍 Where am I?
 
-          awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
+**📍 Currently in:** $currentCity, $currentCountry  
+**🛫 Next:** $nextCity, $nextCountry — *$nextStart–$nextEnd*  
+**🛬 Last:** $lastCity, $lastCountry — *$lastStart–$lastEnd*
+
+---
+
+**🧭 Stats**  
+- **Countries visited:** $countries  
+- **Cities visited:** $cities  
+- **Distance traveled:** $km km / $mi mi  
+- **Most visited city:** $mostCity ($mostCount trips)  
+- **Longest stay:** $longestCity — $longestDays days
+
+---
+
+**🗺 Map:** [View Nomads Travel Map]($mapLink)
+EOF
+
+          awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in=1; next }
+               /<!-- WIDGET_END -->/ { print; in=0; next }
+               !in { print }' README.md > temp.md
+
           mv temp.md README.md
 
       - name: Commit changes
@@ -82,11 +72,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          if git diff-index --quiet HEAD; then
-            echo "No changes to commit"
+          if git diff --quiet; then
+            echo "No changes"
           else
             git commit -m "Update dynamic widget"
-            git push origin HEAD:${{ github.ref }}
+            git push
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
