@@ -51,19 +51,20 @@ Open to:
 
 ---
 <!-- WIDGET_START -->
-### 🌍 Where am I?
+#### 🌍 Travel Summary: @danielreilly
 
-📍 Currently in: Glasgow, United Kingdom
-🛫 Next: Manchester, United Kingdom — 2025-06-26–2025-06-27
-🛬 Last: Athens, Greece — 2025-02-14–2025-02-17
+**📍 Currently in:** Glasgow, UK  
+**🛫 Next:** Manchester, UK — *Jun 26–27*  
+**🛬 Last:** Athens, GR — *Feb 14–17*
 
-🧭 Stats
+---
 
-Countries visited: 12
-Cities visited: 39
-Distance traveled: 286965 km / 178312 mi
-Most visited city: New York City Ny United States (15 trips)
-Longest stay: New York City Ny United States — 156 days
+**🧭 Stats**  
+- **Countries visited:** 12  
+- **Cities visited:** 39  
+- **Distance traveled:** 286965 km / 178312 mi  
+- **Most visited city:** Glasgow United Kingdom (49 trips)  
+- **Longest stay:** Glasgow United Kingdom — 7036 days
 
-🗺 Map: [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)
+**🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)
 <!-- WIDGET_END -->
