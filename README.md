@@ -29,7 +29,7 @@ I publish essays on engineering leadership, system design, and delivery operatio
 
 ### Frameworks and Tooling
 
-If you want to explore my leadership and engineering frameworks, see [Eng Team Blueprint](https://github.com/dr7034/eng-team-blueprint). For startup product-market fit validation tools I use in fractional CTO work, see [Validation Engine](https://github.com/dr7034/validation-engine).
+Explore my leadership and engineering frameworks in [Eng Team Blueprint](https://github.com/dr7034/eng-team-blueprint). For product-market fit validation tools I use in fractional CTO engagements, see [Validation Engine](https://github.com/dr7034/validation-engine).
 
 
 ---
