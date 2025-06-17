@@ -20,8 +20,8 @@ jobs:
           photo=$(echo "$json" | jq -r '.photo // "https://example.com/default-photo.png"')
           currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown City"')
           currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown Country"')
-          nextCity=$(echo "$json" | jq -r 'if .location.next.city != null then .location.next.city else "No upcoming location" end')
-          nextCountry=$(echo "$json" | jq -r 'if .location.next.country != null then .location.next.country else "" end')
+          nextCity=$(echo "$json" | jq -r 'if (.location.next | length) > 0 then .location.next[0].city else "No upcoming location" end')
+          nextCountry=$(echo "$json" | jq -r 'if (.location.next | length) > 0 then .location.next[0].country else "" end')
 
           cities=$(echo "$json" | jq -r '.stats.cities // 0')
           countries=$(echo "$json" | jq -r '.stats.countries // 0')
@@ -30,8 +30,22 @@ jobs:
 
           map=$(echo "$json" | jq -r '.map // ""')
 
-          # Format frequent visits as markdown list
-          frequentVisits=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | map("  - \(.key | gsub("-"; " ") | ascii_downcase | capitalize): \(.value)") | .[]')
+          frequentVisits=$(echo "$json" | jq -r '
+            .frequent_visits
+            | to_entries
+            | sort_by(-.value)
+            | map(
+                "  - "
+                + ( .key
+                    | gsub("-"; " ")
+                    | ascii_downcase
+                    | (.[0:1] | ascii_upcase) + (.[1:] )
+                  )
+                + ": "
+                + ( .value | tostring )
+              )
+            | .[]
+          ')
 
           echo "## Dynamic Widget" > widget.md
           echo "" >> widget.md
