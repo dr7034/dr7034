@@ -13,17 +13,15 @@ jobs:
 
       - name: Fetch API data and create widget
         run: |
-          # Fetch JSON data from your API
+          set -e
           json=$(curl -s "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d")
-          
-          # Extract fields using jq
+
           username=$(echo "$json" | jq -r '.username')
           photo=$(echo "$json" | jq -r '.photo')
           currentCity=$(echo "$json" | jq -r '.location.now.city')
           currentCountry=$(echo "$json" | jq -r '.location.now.country')
           legal=$(echo "$json" | jq -r '.legal')
-          
-          # Create widget markdown
+
           cat <<EOF > widget.md
 ## Dynamic Widget
 
@@ -36,7 +34,6 @@ jobs:
 $legal
 EOF
 
-          # Replace content between markers in README.md
           awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
 
