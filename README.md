@@ -51,20 +51,19 @@ Open to:
 
 ---
 <!-- WIDGET_START -->
-### 🌍 Where am I?
+## 🌍 Where am I?
 
 **📍 Currently in:** Glasgow, United Kingdom  
-**🛫 Next:** Manchester, United Kingdom — *null–null*  
-**🛬 Last:** Athens, Greece — *null–null*  
+**🛫 Next:** Manchester, United Kingdom — *2025-06-26–2025-06-27*  
+**🛬 Last:** Athens, Greece — *2025-02-14–2025-02-17*  
 
 ---
 
-**🧭 Stats**  
 - **Countries visited:** 12
 - **Cities visited:** 39
 - **Distance traveled:** 286965 km / 178312 mi
-- **Most visited city:** Unknown (0 trips)
-- **Longest stay:** Unknown — 0 days
+- **Most visited city:** N Y C N U S (15 trips)
+- **Longest stay:** N Y C N U S — 156 days
 
 ---
 
