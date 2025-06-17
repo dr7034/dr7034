@@ -22,17 +22,15 @@ jobs:
           currentCountry=$(echo "$json" | jq -r '.location.now.country')
           legal=$(echo "$json" | jq -r '.legal')
 
-          cat <<EOF > widget.md
-## Dynamic Widget
-
-![Profile Photo]($photo)
-
-**Username:** $username  
-**Current Location:** $currentCity, $currentCountry  
-
-**Legal Notice:**  
-$legal
-EOF
+          echo "## Dynamic Widget" > widget.md
+          echo "" >> widget.md
+          echo "![Profile Photo]($photo)" >> widget.md
+          echo "" >> widget.md
+          echo "**Username:** $username  " >> widget.md
+          echo "**Current Location:** $currentCity, $currentCountry  " >> widget.md
+          echo "" >> widget.md
+          echo "**Legal Notice:**  " >> widget.md
+          echo "$legal" >> widget.md
 
           awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
