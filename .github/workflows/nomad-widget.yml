@@ -45,36 +45,22 @@ jobs:
           longestCityName=$(echo "$longestCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
           longestCityDays=$(echo "$longestCity" | cut -d' ' -f2)
 
-          smartTrip=$(python3 -c "
-import datetime
-try:
-  now = datetime.date.today()
-  future = datetime.date.fromisoformat('$nextStart')
-  delta = (future - now).days
-  if delta == 0:
-    print('today')
-  elif delta == 1:
-    print('tomorrow')
-  else:
-    print(f'in {delta} days')
-except:
-  print('')
-")
+          smartTrip=$(python3 -c "import datetime\ntry:\n  now = datetime.date.today()\n  future = datetime.date.fromisoformat('$nextStart')\n  delta = (future - now).days\n  if delta == 0:\n    print('today')\n  elif delta == 1:\n    print('tomorrow')\n  else:\n    print(f'in {delta} days')\nexcept:\n  print('')")
 
-          echo "### \U0001F30D Where am I?" > widget.md
+          echo "### 🌍 Where am I?" > widget.md
           echo "" >> widget.md
-          echo "**\U0001F4CD Currently in:** $currentCity, $currentCountry" >> widget.md
-          echo "**\U0001F6EB Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}* ${smartTrip:+($smartTrip)}" >> widget.md
-          echo "**\U0001F6EC Last:** $lastCity, $lastCountry — *${lastStart}–${lastEnd}*" >> widget.md
+          echo "**📍 Currently in:** $currentCity, $currentCountry" >> widget.md
+          echo "**🛫 Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}* ${smartTrip:+($smartTrip)}" >> widget.md
+          echo "**🛬 Last:** $lastCity, $lastCountry — *${lastStart}–${lastEnd}*" >> widget.md
           echo "" >> widget.md
-          echo "**\U0001F9ED Stats**" >> widget.md
+          echo "**🧭 Stats**" >> widget.md
           echo "- **Countries visited:** $countries" >> widget.md
           echo "- **Cities visited:** $cities" >> widget.md
           echo "- **Distance traveled:** ${distanceKm} km / ${distanceMiles} mi" >> widget.md
           echo "- **Most visited city:** $mostCityName ($mostCityTrips trips)" >> widget.md
           echo "- **Longest stay:** $longestCityName — $longestCityDays days" >> widget.md
           echo "" >> widget.md
-          echo "**\U0001F5FA Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)" >> widget.md
+          echo "**🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)" >> widget.md
 
           awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
