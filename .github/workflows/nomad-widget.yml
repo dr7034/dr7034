@@ -2,7 +2,7 @@ name: Update README Widget
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs hourly
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -54,23 +54,27 @@ jobs:
           longestCityDays=$(echo "$longestCity" | cut -d'|' -f2 | xargs)
 
           now=$(date -u +"%Y-%m-%d")
-          smartTrip=$(python3 -c "
+          smartTrip=$(python3 <<EOF
 import datetime
-now = datetime.date.fromisoformat('$now')
-future = datetime.date.fromisoformat('$nextStart')
-delta = (future - now).days
-if delta == 0:
-  print('today')
-elif delta == 1:
-  print('tomorrow')
-else:
-  print(f'in {delta} days')
-")
+now = datetime.date.fromisoformat("$now")
+try:
+    future = datetime.date.fromisoformat("$nextStart")
+    delta = (future - now).days
+    if delta == 0:
+        print("today")
+    elif delta == 1:
+        print("tomorrow")
+    else:
+        print(f"in {delta} days")
+except Exception:
+    print("")
+EOF
+)
 
           echo "### 🌍 Where am I?" > widget.md
           echo "" >> widget.md
           echo "**📍 Currently in:** $currentCity, $currentCountry" >> widget.md
-          echo "**🛫 Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}* ($smartTrip)" >> widget.md
+          echo "**🛫 Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}* ${smartTrip:+($smartTrip)}" >> widget.md
           echo "**🛬 Last:** $lastCity, $lastCountry — *${lastStart}–${lastEnd}*" >> widget.md
           echo "" >> widget.md
           echo "**🧭 Stats**" >> widget.md
