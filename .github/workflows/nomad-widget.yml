@@ -54,11 +54,15 @@ jobs:
           longestCityDays=$(echo "$longestCity" | cut -d'|' -f2 | xargs)
 
           now=$(date -u +"%Y-%m-%d")
-          smartTrip=$(python3 <<EOF
+          smartTrip=$(python3 - <<'PYEOF'
 import datetime
-now = datetime.date.fromisoformat("$now")
+import os
+
+now = datetime.date.fromisoformat(os.environ["NOW"])
+next_start = os.environ["NEXT_START"]
+
 try:
-    future = datetime.date.fromisoformat("$nextStart")
+    future = datetime.date.fromisoformat(next_start)
     delta = (future - now).days
     if delta == 0:
         print("today")
@@ -68,8 +72,11 @@ try:
         print(f"in {delta} days")
 except Exception:
     print("")
-EOF
-)
+PYEOF
+          )
+
+          export NOW=$now
+          export NEXT_START=$nextStart
 
           echo "### 🌍 Where am I?" > widget.md
           echo "" >> widget.md
