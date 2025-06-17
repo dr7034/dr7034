@@ -12,20 +12,22 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Fetch API data and create widget
+        env:
+          NOMAD_URL: "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d"
         run: |
           set -e
 
-          json=$(curl -s "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d")
+          json=$(curl -s "$NOMAD_URL")
 
-          currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown City"')
-          currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown Country"')
+          currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown"')
+          currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown"')
 
-          nextCity=$(echo "$json" | jq -r '.location.next.city // "None"')
+          nextCity=$(echo "$json" | jq -r '.location.next.city // "Unknown"')
           nextCountry=$(echo "$json" | jq -r '.location.next.country // ""')
           nextStart=$(echo "$json" | jq -r '.location.next.date_start // ""')
           nextEnd=$(echo "$json" | jq -r '.location.next.date_end // ""')
 
-          lastCity=$(echo "$json" | jq -r '.location.last.city // "None"')
+          lastCity=$(echo "$json" | jq -r '.location.last.city // "Unknown"')
           lastCountry=$(echo "$json" | jq -r '.location.last.country // ""')
           lastStart=$(echo "$json" | jq -r '.location.last.date_start // ""')
           lastEnd=$(echo "$json" | jq -r '.location.last.date_end // ""')
@@ -35,63 +37,44 @@ jobs:
           distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
           distanceMiles=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
 
-          mostCity=$(echo "$json" | jq -r '
-            .frequent_visits
-            | to_entries | sort_by(-.value)
-            | if length > 1 then .[1] else empty end
-            | "\(.key) |\(.value)"
-          ')
-          mostCityName=$(echo "$mostCity" | cut -d'|' -f1 | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
-          mostCityTrips=$(echo "$mostCity" | cut -d'|' -f2 | xargs)
+          mostCity=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | .[1] | "\(.key) \(.value)"')
+          mostCityName=$(echo "$mostCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
+          mostCityTrips=$(echo "$mostCity" | cut -d' ' -f2)
 
-          longestCity=$(echo "$json" | jq -r '
-            .longest_stays
-            | to_entries | sort_by(-.value)
-            | if length > 1 then .[1] else empty end
-            | "\(.key) |\(.value)"
-          ')
-          longestCityName=$(echo "$longestCity" | cut -d'|' -f1 | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
-          longestCityDays=$(echo "$longestCity" | cut -d'|' -f2 | xargs)
+          longestCity=$(echo "$json" | jq -r '.longest_stays | to_entries | sort_by(-.value) | .[1] | "\(.key) \(.value)"')
+          longestCityName=$(echo "$longestCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
+          longestCityDays=$(echo "$longestCity" | cut -d' ' -f2)
 
-          now=$(date -u +"%Y-%m-%d")
-          smartTrip=$(python3 - <<'PYEOF'
+          smartTrip=$(python3 -c "
 import datetime
-import os
-
-now = datetime.date.fromisoformat(os.environ["NOW"])
-next_start = os.environ["NEXT_START"]
-
 try:
-    future = datetime.date.fromisoformat(next_start)
-    delta = (future - now).days
-    if delta == 0:
-        print("today")
-    elif delta == 1:
-        print("tomorrow")
-    else:
-        print(f"in {delta} days")
-except Exception:
-    print("")
-PYEOF
-          )
+  now = datetime.date.today()
+  future = datetime.date.fromisoformat('$nextStart')
+  delta = (future - now).days
+  if delta == 0:
+    print('today')
+  elif delta == 1:
+    print('tomorrow')
+  else:
+    print(f'in {delta} days')
+except:
+  print('')
+")
 
-          export NOW=$now
-          export NEXT_START=$nextStart
-
-          echo "### 🌍 Where am I?" > widget.md
+          echo "### \U0001F30D Where am I?" > widget.md
           echo "" >> widget.md
-          echo "**📍 Currently in:** $currentCity, $currentCountry" >> widget.md
-          echo "**🛫 Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}* ${smartTrip:+($smartTrip)}" >> widget.md
-          echo "**🛬 Last:** $lastCity, $lastCountry — *${lastStart}–${lastEnd}*" >> widget.md
+          echo "**\U0001F4CD Currently in:** $currentCity, $currentCountry" >> widget.md
+          echo "**\U0001F6EB Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}* ${smartTrip:+($smartTrip)}" >> widget.md
+          echo "**\U0001F6EC Last:** $lastCity, $lastCountry — *${lastStart}–${lastEnd}*" >> widget.md
           echo "" >> widget.md
-          echo "**🧭 Stats**" >> widget.md
+          echo "**\U0001F9ED Stats**" >> widget.md
           echo "- **Countries visited:** $countries" >> widget.md
           echo "- **Cities visited:** $cities" >> widget.md
           echo "- **Distance traveled:** ${distanceKm} km / ${distanceMiles} mi" >> widget.md
           echo "- **Most visited city:** $mostCityName ($mostCityTrips trips)" >> widget.md
           echo "- **Longest stay:** $longestCityName — $longestCityDays days" >> widget.md
           echo "" >> widget.md
-          echo "**🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)" >> widget.md
+          echo "**\U0001F5FA Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)" >> widget.md
 
           awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
