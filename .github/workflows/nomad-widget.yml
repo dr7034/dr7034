@@ -16,35 +16,67 @@ jobs:
           set -e
           json=$(curl -s "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d")
 
-          currentCity=$(echo "$json" | jq -r '.location.now.city')
-          currentCountry=$(echo "$json" | jq -r '.location.now.country')
+          currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown City"')
+          currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown Country"')
 
-          nextCity=$(echo "$json" | jq -r '.location.next[0].city')
-          nextCountry=$(echo "$json" | jq -r '.location.next[0].country')
-          nextStart=$(echo "$json" | jq -r '.location.next[0].start_date')
-          nextEnd=$(echo "$json" | jq -r '.location.next[0].end_date')
+          nextCity=$(echo "$json" | jq -r '
+            (.location.next // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].city else "No upcoming location" end
+          ')
+          nextCountry=$(echo "$json" | jq -r '
+            (.location.next // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].country else "" end
+          ')
+          nextStart=$(echo "$json" | jq -r '
+            (.location.next // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].start_date else "" end
+          ')
+          nextEnd=$(echo "$json" | jq -r '
+            (.location.next // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].end_date else "" end
+          ')
 
-          lastCity=$(echo "$json" | jq -r '.location.previous[0].city')
-          lastCountry=$(echo "$json" | jq -r '.location.previous[0].country')
-          lastStart=$(echo "$json" | jq -r '.location.previous[0].start_date')
-          lastEnd=$(echo "$json" | jq -r '.location.previous[0].end_date')
+          lastCity=$(echo "$json" | jq -r '
+            (.location.previous // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].city else "Unknown" end
+          ')
+          lastCountry=$(echo "$json" | jq -r '
+            (.location.previous // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].country else "" end
+          ')
+          lastStart=$(echo "$json" | jq -r '
+            (.location.previous // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].start_date else "" end
+          ')
+          lastEnd=$(echo "$json" | jq -r '
+            (.location.previous // []) 
+            | (if type == "object" then [.] else . end)
+            | if length > 0 then .[0].end_date else "" end
+          ')
 
-          countries=$(echo "$json" | jq -r '.stats.countries')
-          cities=$(echo "$json" | jq -r '.stats.cities')
-          distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km')
-          distanceMi=$(echo "$json" | jq -r '.stats.distance_traveled_miles')
-          mostCity=$(echo "$json" | jq -r '.stats.most_visited.city')
-          mostCount=$(echo "$json" | jq -r '.stats.most_visited.count')
-          longestCity=$(echo "$json" | jq -r '.stats.longest_stay.city')
-          longestDays=$(echo "$json" | jq -r '.stats.longest_stay.days')
+          countries=$(echo "$json" | jq -r '.stats.countries // 0')
+          cities=$(echo "$json" | jq -r '.stats.cities // 0')
+          distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
+          distanceMi=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
+          mostCity=$(echo "$json" | jq -r '.stats.most_visited.city // "Unknown"')
+          mostCount=$(echo "$json" | jq -r '.stats.most_visited.count // 0')
+          longestCity=$(echo "$json" | jq -r '.stats.longest_stay.city // "Unknown"')
+          longestDays=$(echo "$json" | jq -r '.stats.longest_stay.days // 0')
 
           mapLink="https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d"
 
           echo "### 🌍 Where am I?" > widget.md
           echo "" >> widget.md
           echo "**📍 Currently in:** $currentCity, $currentCountry  " >> widget.md
-          echo "**🛫 Next:** $nextCity, $nextCountry — *$nextStart–$nextEnd*  " >> widget.md
-          echo "**🛬 Last:** $lastCity, $lastCountry — *$lastStart–$lastEnd*  " >> widget.md
+          echo "**🛫 Next:** $nextCity${nextCountry:+, $nextCountry} — *$nextStart–$nextEnd*  " >> widget.md
+          echo "**🛬 Last:** $lastCity${lastCountry:+, $lastCountry} — *$lastStart–$lastEnd*  " >> widget.md
           echo "" >> widget.md
           echo "---" >> widget.md
           echo "" >> widget.md
