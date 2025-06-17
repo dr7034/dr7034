@@ -2,7 +2,7 @@ name: Update README Widget
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs hourly; adjust as needed
+    - cron: '0 * * * *'  # Runs hourly
   workflow_dispatch:
 
 jobs:
@@ -14,122 +14,59 @@ jobs:
       - name: Fetch API data and create widget
         run: |
           set -e
+
           json=$(curl -s "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d")
 
-          currentCity=$(echo "$json" | jq -r ".location.now.city // \"Unknown City\"")
-          currentCountry=$(echo "$json" | jq -r ".location.now.country // \"Unknown Country\"")
+          currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown City"')
+          currentCountry=$(echo "$json" | jq -r '.location.now.country // "Unknown Country"')
 
-          nextCity=$(echo "$json" | jq -r "
-            (.location.next // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].city else \"No upcoming location\" end
-          ")
-          nextCountry=$(echo "$json" | jq -r "
-            (.location.next // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].country else \"\" end
-          ")
-          nextStart=$(echo "$json" | jq -r "
-            (.location.next // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].date_start else \"\" end
-          ")
-          nextEnd=$(echo "$json" | jq -r "
-            (.location.next // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].date_end else \"\" end
-          ")
+          nextCity=$(echo "$json" | jq -r '.location.next[0].city // "None"')
+          nextCountry=$(echo "$json" | jq -r '.location.next[0].country // ""')
+          nextStart=$(echo "$json" | jq -r '.location.next[0].date_start // ""')
+          nextEnd=$(echo "$json" | jq -r '.location.next[0].date_end // ""')
 
-          lastCity=$(echo "$json" | jq -r "
-            (.location.previous // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].city else \"Unknown\" end
-          ")
-          lastCountry=$(echo "$json" | jq -r "
-            (.location.previous // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].country else \"\" end
-          ")
-          lastStart=$(echo "$json" | jq -r "
-            (.location.previous // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].date_start else \"\" end
-          ")
-          lastEnd=$(echo "$json" | jq -r "
-            (.location.previous // []) 
-            | (if type == \"object\" then [.] else . end)
-            | if length > 0 then .[0].date_end else \"\" end
-          ")
+          lastCity=$(echo "$json" | jq -r '.location.last[0].city // "None"')
+          lastCountry=$(echo "$json" | jq -r '.location.last[0].country // ""')
+          lastStart=$(echo "$json" | jq -r '.location.last[0].date_start // ""')
+          lastEnd=$(echo "$json" | jq -r '.location.last[0].date_end // ""')
 
-          countries=$(echo "$json" | jq -r ".stats.countries // 0")
-          cities=$(echo "$json" | jq -r ".stats.cities // 0")
-          distanceKm=$(echo "$json" | jq -r ".stats.distance_traveled_km // 0")
-          distanceMi=$(echo "$json" | jq -r ".stats.distance_traveled_miles // 0")
+          cities=$(echo "$json" | jq -r '.stats.cities // 0')
+          countries=$(echo "$json" | jq -r '.stats.countries // 0')
+          distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
+          distanceMiles=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
 
-          mostCity=$(echo "$json" | jq -r "
-            .frequent_visits 
-            | to_entries 
-            | sort_by(-.value) 
-            | if length > 1 then .[1].key else \"Unknown\" end
-            | gsub(\"-\"; \" \") 
-            | split(\" \") 
-            | map(.[0:1] | ascii_upcase + .[1:]) 
-            | join(\" \")
-          ")
-          mostCount=$(echo "$json" | jq -r "
-            .frequent_visits 
-            | to_entries 
-            | sort_by(-.value) 
-            | if length > 1 then .[1].value else 0 end
-          ")
+          mostCity=$(echo "$json" | jq -r '
+            .frequent_visits
+            | to_entries | sort_by(-.value)
+            | if length > 1 then .[1] else empty end
+            | "\(.key) |\(.value)"
+          ')
+          mostCityName=$(echo "$mostCity" | cut -d'|' -f1 | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
+          mostCityTrips=$(echo "$mostCity" | cut -d'|' -f2 | xargs)
 
-          longestCity=$(echo "$json" | jq -r "
-            .longest_stays 
-            | to_entries 
-            | sort_by(-.value) 
-            | if length > 1 then .[1].key else \"Unknown\" end
-            | gsub(\"-\"; \" \") 
-            | split(\" \") 
-            | map(.[0:1] | ascii_upcase + .[1:]) 
-            | join(\" \")
-          ")
-          longestDays=$(echo "$json" | jq -r "
-            .longest_stays 
-            | to_entries 
-            | sort_by(-.value) 
-            | if length > 1 then .[1].value else 0 end
-          ")
+          longestCity=$(echo "$json" | jq -r '
+            .longest_stays
+            | to_entries | sort_by(-.value)
+            | if length > 1 then .[1] else empty end
+            | "\(.key) |\(.value)"
+          ')
+          longestCityName=$(echo "$longestCity" | cut -d'|' -f1 | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
+          longestCityDays=$(echo "$longestCity" | cut -d'|' -f2 | xargs)
 
-          mapLink="https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d"
-
-          echo "## 🌍 Where am I?" > widget.md
+          echo "#### 🌍 Where am I?" > widget.md
           echo "" >> widget.md
-          echo "**📍 Currently in:** $currentCity, $currentCountry  " >> widget.md
-
-          if [ -n "$nextStart" ] && [ "$nextStart" != "null" ] && [ -n "$nextEnd" ] && [ "$nextEnd" != "null" ]; then
-            echo "**🛫 Next:** $nextCity${nextCountry:+, $nextCountry} — *$nextStart–$nextEnd*  " >> widget.md
-          else
-            echo "**🛫 Next:** $nextCity${nextCountry:+, $nextCountry}  " >> widget.md
-          fi
-
-          if [ -n "$lastStart" ] && [ "$lastStart" != "null" ] && [ -n "$lastEnd" ] && [ "$lastEnd" != "null" ]; then
-            echo "**🛬 Last:** $lastCity${lastCountry:+, $lastCountry} — *$lastStart–$lastEnd*  " >> widget.md
-          else
-            echo "**🛬 Last:** $lastCity${lastCountry:+, $lastCountry}  " >> widget.md
-          fi
-
+          echo "**📍 Currently in:** $currentCity, $currentCountry" >> widget.md
+          echo "**🛫 Next:** $nextCity, $nextCountry — *${nextStart}–${nextEnd}*" >> widget.md
+          echo "**🛬 Last:** $lastCity, $lastCountry — *${lastStart}–${lastEnd}*" >> widget.md
           echo "" >> widget.md
-          echo "---" >> widget.md
-          echo "" >> widget.md
+          echo "**🧭 Stats**" >> widget.md
           echo "- **Countries visited:** $countries" >> widget.md
           echo "- **Cities visited:** $cities" >> widget.md
-          echo "- **Distance traveled:** $distanceKm km / $distanceMi mi" >> widget.md
-          echo "- **Most visited city:** $mostCity ($mostCount trips)" >> widget.md
-          echo "- **Longest stay:** $longestCity — $longestDays days" >> widget.md
+          echo "- **Distance traveled:** ${distanceKm} km / ${distanceMiles} mi" >> widget.md
+          echo "- **Most visited city:** $mostCityName ($mostCityTrips trips)" >> widget.md
+          echo "- **Longest stay:** $longestCityName — $longestCityDays days" >> widget.md
           echo "" >> widget.md
-          echo "---" >> widget.md
-          echo "" >> widget.md
-          echo "**🗺 Map:** [View Nomads Travel Map]($mapLink)" >> widget.md
+          echo "**🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)" >> widget.md
 
           awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
           mv temp.md README.md
