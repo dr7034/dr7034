@@ -53,16 +53,16 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Manchester, UK — *Jun 26–27*  
-**🛬 Last:** Athens, GR — *Feb 14–17*
+**📍 Currently in:** Manchester, UK  
+**🛫 Next:** Rhodes, GR — *Jun 27–5*  
+**🛬 Last:** Glasgow, UK — *Feb 17–25*
 
 ---
 
 **🧭 Stats**  
 - **Countries visited:** 12  
-- **Cities visited:** 39  
-- **Distance traveled:** 289422 km / 179839 mi  
+- **Cities visited:** 40  
+- **Distance traveled:** 289717 km / 180022 mi  
 - **Most visited city:** New York City Ny United States (17 trips)  
 - **Longest stay:** New York City Ny United States — 158 days
 
