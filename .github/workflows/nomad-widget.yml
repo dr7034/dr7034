@@ -25,31 +25,31 @@ jobs:
             exit 0
           fi
 
-          currentCity=$(echo "$json" | jq -r '.location.now.city // "Unknown"')
-          currentCountryCode=$(echo "$json" | jq -r '.location.now.country_code // ""')
+          currentCity=$(echo "$json" | jq -r 'try .location.now.city // "Unknown"')
+          currentCountryCode=$(echo "$json" | jq -r 'try .location.now.country_code // ""')
 
-          nextCity=$(echo "$json" | jq -r '.location.next.city // "Unknown"')
-          nextCountryCode=$(echo "$json" | jq -r '.location.next.country_code // ""')
-          nextStart=$(echo "$json" | jq -r '.location.next.date_start // ""')
-          nextEnd=$(echo "$json" | jq -r '.location.next.date_end // ""')
+          nextCity=$(echo "$json" | jq -r 'try .location.next.city // "Unknown"')
+          nextCountryCode=$(echo "$json" | jq -r 'try .location.next.country_code // ""')
+          nextStart=$(echo "$json" | jq -r 'try .location.next.date_start // ""')
+          nextEnd=$(echo "$json" | jq -r 'try .location.next.date_end // ""')
 
-          lastCity=$(echo "$json" | jq -r '.location.previous.city // "Unknown"')
-          lastCountryCode=$(echo "$json" | jq -r '.location.previous.country_code // ""')
-          lastStart=$(echo "$json" | jq -r '.location.previous.date_start // ""')
-          lastEnd=$(echo "$json" | jq -r '.location.previous.date_end // ""')
+          lastCity=$(echo "$json" | jq -r 'try .location.previous.city // "Unknown"')
+          lastCountryCode=$(echo "$json" | jq -r 'try .location.previous.country_code // ""')
+          lastStart=$(echo "$json" | jq -r 'try .location.previous.date_start // ""')
+          lastEnd=$(echo "$json" | jq -r 'try .location.previous.date_end // ""')
 
-          countries=$(echo "$json" | jq -r '.stats.countries // 0')
-          cities=$(echo "$json" | jq -r '.stats.cities // 0')
-          distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
-          distanceMiles=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
+          countries=$(echo "$json" | jq -r 'try .stats.countries // 0')
+          cities=$(echo "$json" | jq -r 'try .stats.cities // 0')
+          distanceKm=$(echo "$json" | jq -r 'try .stats.distance_traveled_km // 0')
+          distanceMiles=$(echo "$json" | jq -r 'try .stats.distance_traveled_miles // 0')
 
-          mostCity=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
+          mostCity=$(echo "$json" | jq -r 'try .frequent_visits | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
           mostCityName=$(echo "$mostCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
           mostCityTrips=$(echo "$mostCity" | cut -d' ' -f2)
           mostCityName=${mostCityName:-Unknown}
           mostCityTrips=${mostCityTrips:-0}
 
-          longestCity=$(echo "$json" | jq -r '.longest_stays | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
+          longestCity=$(echo "$json" | jq -r 'try .longest_stays | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
           longestCityName=$(echo "$longestCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
           longestCityDays=$(echo "$longestCity" | cut -d' ' -f2)
           longestCityName=${longestCityName:-Unknown}
