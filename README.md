@@ -53,9 +53,9 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Rhodes, GR  
-**🛫 Next:** Glasgow, UK — *Jul 6–22*  
-**🛬 Last:** Manchester, UK — *Jun 26–27*
+**📍 Currently in:** Unknown,   
+**🛫 Next:** Unknown,  — *TBD*  
+**🛬 Last:** Unknown,  — *Unknown*
 
 ---
 
@@ -63,8 +63,8 @@ Open to:
 - **Countries visited:** 12  
 - **Cities visited:** 41  
 - **Distance traveled:** 292737 km / 181898 mi  
-- **Most visited city:** New York City Ny United States (17 trips)  
-- **Longest stay:** New York City Ny United States — 158 days
+- **Most visited city:** Glasgow United Kingdom (49 trips)  
+- **Longest stay:** Glasgow United Kingdom — 7044 days
 
 **🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)
 <!-- WIDGET_END -->
