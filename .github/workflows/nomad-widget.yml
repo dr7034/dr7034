@@ -25,18 +25,18 @@ jobs:
             exit 0
           fi
 
-          currentCity=$(echo "$json" | jq -r 'try .location.now.city // "Unknown"')
-          currentCountryCode=$(echo "$json" | jq -r 'try .location.now.country_code // ""')
+          currentCity=$(echo "$json" | jq -r 'try .location.now[0].city // "Unknown"')
+          currentCountryCode=$(echo "$json" | jq -r 'try .location.now[0].country_code // ""')
 
-          nextCity=$(echo "$json" | jq -r 'try .location.next.city // "Unknown"')
-          nextCountryCode=$(echo "$json" | jq -r 'try .location.next.country_code // ""')
-          nextStart=$(echo "$json" | jq -r 'try .location.next.date_start // ""')
-          nextEnd=$(echo "$json" | jq -r 'try .location.next.date_end // ""')
+          nextCity=$(echo "$json" | jq -r 'try .location.next[0].city // "Unknown"')
+          nextCountryCode=$(echo "$json" | jq -r 'try .location.next[0].country_code // ""')
+          nextStart=$(echo "$json" | jq -r 'try .location.next[0].date_start // ""')
+          nextEnd=$(echo "$json" | jq -r 'try .location.next[0].date_end // ""')
 
-          lastCity=$(echo "$json" | jq -r 'try .location.previous.city // "Unknown"')
-          lastCountryCode=$(echo "$json" | jq -r 'try .location.previous.country_code // ""')
-          lastStart=$(echo "$json" | jq -r 'try .location.previous.date_start // ""')
-          lastEnd=$(echo "$json" | jq -r 'try .location.previous.date_end // ""')
+          lastCity=$(echo "$json" | jq -r 'try .location.previous[0].city // "Unknown"')
+          lastCountryCode=$(echo "$json" | jq -r 'try .location.previous[0].country_code // ""')
+          lastStart=$(echo "$json" | jq -r 'try .location.previous[0].date_start // ""')
+          lastEnd=$(echo "$json" | jq -r 'try .location.previous[0].date_end // ""')
 
           countries=$(echo "$json" | jq -r 'try .stats.countries // 0')
           cities=$(echo "$json" | jq -r 'try .stats.cities // 0')
