@@ -15,7 +15,8 @@ jobs:
         env:
           NOMAD_URL: "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d"
         run: |
-          set -e
+          set -euo pipefail
+          IFS=$'\n\t'
 
           json=$(curl -s "$NOMAD_URL")
 
@@ -42,16 +43,29 @@ jobs:
           distanceKm=$(echo "$json" | jq -r '.stats.distance_traveled_km // 0')
           distanceMiles=$(echo "$json" | jq -r '.stats.distance_traveled_miles // 0')
 
-          mostCity=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | .[1] | "\(.key) \(.value)"')
+          mostCity=$(echo "$json" | jq -r '.frequent_visits | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
           mostCityName=$(echo "$mostCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
           mostCityTrips=$(echo "$mostCity" | cut -d' ' -f2)
+          mostCityName=${mostCityName:-Unknown}
+          mostCityTrips=${mostCityTrips:-0}
 
-          longestCity=$(echo "$json" | jq -r '.longest_stays | to_entries | sort_by(-.value) | .[1] | "\(.key) \(.value)"')
+          longestCity=$(echo "$json" | jq -r '.longest_stays | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
           longestCityName=$(echo "$longestCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
           longestCityDays=$(echo "$longestCity" | cut -d' ' -f2)
+          longestCityName=${longestCityName:-Unknown}
+          longestCityDays=${longestCityDays:-0}
 
-          nextRange=$(date -d "$nextStart" '+%b %-d')–$(date -d "$nextEnd" '+%-d')
-          lastRange=$(date -d "$lastStart" '+%b %-d')–$(date -d "$lastEnd" '+%-d')
+          if [[ -n "$nextStart" && -n "$nextEnd" ]]; then
+            nextRange=$(date -d "$nextStart" '+%b %-d')–$(date -d "$nextEnd" '+%-d')
+          else
+            nextRange="TBD"
+          fi
+
+          if [[ -n "$lastStart" && -n "$lastEnd" ]]; then
+            lastRange=$(date -d "$lastStart" '+%b %-d')–$(date -d "$lastEnd" '+%-d')
+          else
+            lastRange="Unknown"
+          fi
 
           echo "#### 🌍 Travel Summary" > widget.md
           echo "" >> widget.md
