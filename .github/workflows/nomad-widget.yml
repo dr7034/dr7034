@@ -1,77 +1,121 @@
-set -euo pipefail
-IFS=$'\n\t'
+name: Update README Widget
 
-json=$(curl -s "$NOMAD_URL")
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
-if [ -z "$json" ] || ! echo "$json" | jq empty > /dev/null 2>&1; then
-  echo "Invalid or empty response from NOMAD_URL. Skipping widget update."
-  exit 0
-fi
+permissions:
+  contents: write
 
-currentCity=$(echo "$json" | jq -r 'try .location.now.city // "Unknown"')
-currentCountryCode=$(echo "$json" | jq -r 'try .location.now.country_code // ""')
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    env:
+      NOMAD_URL: "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d"
+    steps:
+      - uses: actions/checkout@v4
 
-nextCity=$(echo "$json" | jq -r 'try .location.next.city // "Unknown"')
-nextCountryCode=$(echo "$json" | jq -r 'try .location.next.country_code // ""')
-nextStart=$(echo "$json" | jq -r 'try .location.next.date_start // ""')
-nextEnd=$(echo "$json" | jq -r 'try .location.next.date_end // ""')
+      - name: Ensure jq
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y jq
 
-lastCity=$(echo "$json" | jq -r 'try .location.previous.city // "Unknown"')
-lastCountryCode=$(echo "$json" | jq -r 'try .location.previous.country_code // ""')
-lastStart=$(echo "$json" | jq -r 'try .location.previous.date_start // ""')
-lastEnd=$(echo "$json" | jq -r 'try .location.previous.date_end // ""')
+      - name: Fetch API data and create widget
+        run: |
+          set -euo pipefail
+          IFS=$'\n\t'
 
-countries=$(echo "$json" | jq -r 'try .stats.countries // 0')
-cities=$(echo "$json" | jq -r 'try .stats.cities // 0')
-distanceKm=$(echo "$json" | jq -r 'try .stats.distance_traveled_km // 0')
-distanceMiles=$(echo "$json" | jq -r 'try .stats.distance_traveled_miles // 0')
+          json=$(curl -s "$NOMAD_URL")
 
-mostCity=$(echo "$json" | jq -r 'try .frequent_visits | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
-mostCityName=$(echo "$mostCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
-mostCityTrips=$(echo "$mostCity" | cut -d' ' -f2)
-mostCityName=${mostCityName:-Unknown}
-mostCityTrips=${mostCityTrips:-0}
+          if [ -z "$json" ] || ! echo "$json" | jq empty > /dev/null 2>&1; then
+            echo "Invalid or empty response from NOMAD_URL. Skipping widget update."
+            exit 0
+          fi
 
-longestCity=$(echo "$json" | jq -r 'try .longest_stays | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
-longestCityName=$(echo "$longestCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
-longestCityDays=$(echo "$longestCity" | cut -d' ' -f2)
-longestCityName=${longestCityName:-Unknown}
-longestCityDays=${longestCityDays:-0}
+          currentCity=$(echo "$json" | jq -r 'try .location.now.city // "Unknown"')
+          currentCountryCode=$(echo "$json" | jq -r 'try .location.now.country_code // ""')
 
-if [[ -n "$nextStart" && -n "$nextEnd" ]]; then
-  nextRange=$(date -d "$nextStart" '+%b %-d')–$(date -d "$nextEnd" '+%-d')
-else
-  nextRange="TBD"
-fi
+          nextCity=$(echo "$json" | jq -r 'try .location.next.city // "Unknown"')
+          nextCountryCode=$(echo "$json" | jq -r 'try .location.next.country_code // ""')
+          nextStart=$(echo "$json" | jq -r 'try .location.next.date_start // ""')
+          nextEnd=$(echo "$json" | jq -r 'try .location.next.date_end // ""')
 
-if [[ -n "$lastStart" && -n "$lastEnd" ]]; then
-  lastRange=$(date -d "$lastStart" '+%b %-d')–$(date -d "$lastEnd" '+%-d')
-else
-  lastRange="Unknown"
-fi
+          lastCity=$(echo "$json" | jq -r 'try .location.previous.city // "Unknown"')
+          lastCountryCode=$(echo "$json" | jq -r 'try .location.previous.country_code // ""')
+          lastStart=$(echo "$json" | jq -r 'try .location.previous.date_start // ""')
+          lastEnd=$(echo "$json" | jq -r 'try .location.previous.date_end // ""')
 
-# fail fast if everything is Unknown (schema drift alert)
-if [[ "$currentCity" == "Unknown" && "$nextCity" == "Unknown" && "$lastCity" == "Unknown" ]]; then
-  echo "Selectors returned Unknown for all locations. Aborting to avoid junk commit."
-  exit 1
-fi
+          countries=$(echo "$json" | jq -r 'try .stats.countries // 0')
+          cities=$(echo "$json" | jq -r 'try .stats.cities // 0')
+          distanceKm=$(echo "$json" | jq -r 'try .stats.distance_traveled_km // 0')
+          distanceMiles=$(echo "$json" | jq -r 'try .stats.distance_traveled_miles // 0')
 
-echo "#### 🌍 Travel Summary" > widget.md
-echo "" >> widget.md
-echo "**📍 Currently in:** $currentCity, $currentCountryCode  " >> widget.md
-echo "**🛫 Next:** $nextCity, $nextCountryCode — *$nextRange*  " >> widget.md
-echo "**🛬 Last:** $lastCity, $lastCountryCode — *$lastRange*" >> widget.md
-echo "" >> widget.md
-echo "---" >> widget.md
-echo "" >> widget.md
-echo "**🧭 Stats**  " >> widget.md
-echo "- **Countries visited:** $countries  " >> widget.md
-echo "- **Cities visited:** $cities  " >> widget.md
-echo "- **Distance traveled:** ${distanceKm} km / ${distanceMiles} mi  " >> widget.md
-echo "- **Most visited city:** $mostCityName ($mostCityTrips trips)  " >> widget.md
-echo "- **Longest stay:** $longestCityName — $longestCityDays days" >> widget.md
-echo "" >> widget.md
-echo "**🗺 Map:** [View Nomads Travel Map]($(echo "$json" | jq -r '.map'))" >> widget.md
+          mostCity=$(echo "$json" | jq -r 'try .frequent_visits | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
+          mostCityName=$(echo "$mostCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
+          mostCityTrips=$(echo "$mostCity" | cut -d' ' -f2)
+          mostCityName=${mostCityName:-Unknown}
+          mostCityTrips=${mostCityTrips:-0}
 
-awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
-mv temp.md README.md
+          longestCity=$(echo "$json" | jq -r 'try .longest_stays | to_entries | sort_by(-.value) | .[0] // empty | "\(.key) \(.value)"')
+          longestCityName=$(echo "$longestCity" | cut -d' ' -f1 | tr '-' ' ' | sed 's/\b\(\w\)/\u\1/g')
+          longestCityDays=$(echo "$longestCity" | cut -d' ' -f2)
+          longestCityName=${longestCityName:-Unknown}
+          longestCityDays=${longestCityDays:-0}
+
+          if [[ -n "$nextStart" && -n "$nextEnd" ]]; then
+            nextRange=$(date -d "$nextStart" '+%b %-d')–$(date -d "$nextEnd" '+%-d')
+          else
+            nextRange="TBD"
+          fi
+
+          if [[ -n "$lastStart" && -n "$lastEnd" ]]; then
+            lastRange=$(date -d "$lastStart" '+%b %-d')–$(date -d "$lastEnd" '+%-d')
+          else
+            lastRange="Unknown"
+          fi
+
+          if [[ "$currentCity" == "Unknown" && "$nextCity" == "Unknown" && "$lastCity" == "Unknown" ]]; then
+            echo "Selectors returned Unknown for all locations. Aborting to avoid junk commit."
+            exit 1
+          fi
+
+          mapUrl=$(echo "$json" | jq -r 'try .map // empty')
+
+          echo "#### 🌍 Travel Summary" > widget.md
+          echo "" >> widget.md
+          echo "**📍 Currently in:** $currentCity, $currentCountryCode  " >> widget.md
+          echo "**🛫 Next:** $nextCity, $nextCountryCode — *$nextRange*  " >> widget.md
+          echo "**🛬 Last:** $lastCity, $lastCountryCode — *$lastRange*" >> widget.md
+          echo "" >> widget.md
+          echo "---" >> widget.md
+          echo "" >> widget.md
+          echo "**🧭 Stats**  " >> widget.md
+          echo "- **Countries visited:** $countries  " >> widget.md
+          echo "- **Cities visited:** $cities  " >> widget.md
+          echo "- **Distance traveled:** ${distanceKm} km / ${distanceMiles} mi  " >> widget.md
+          echo "- **Most visited city:** $mostCityName ($mostCityTrips trips)  " >> widget.md
+          echo "- **Longest stay:** $longestCityName — $longestCityDays days" >> widget.md
+          echo "" >> widget.md
+          if [[ -n "$mapUrl" ]]; then
+            echo "**🗺 Map:** [View Nomads Travel Map]($mapUrl)" >> widget.md
+          fi
+
+          awk '/<!-- WIDGET_START -->/ { print; system("cat widget.md"); in_widget=1; next } /<!-- WIDGET_END -->/ { print; in_widget=0; next } !in_widget { print }' README.md > temp.md
+          mv temp.md README.md
+
+      - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Update dynamic widget"
+          git push
