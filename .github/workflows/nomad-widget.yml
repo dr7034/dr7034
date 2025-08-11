@@ -12,36 +12,30 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
     env:
-      NOMAD_URL: "https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d"
+      NOMAD_URL: https://nomads.com/@danielreilly.json?key=b9ec566fe67015f63c7d6225ff9e5a4d
     steps:
       - uses: actions/checkout@v4
 
       - name: Ensure jq
-        run: |
-          set -euo pipefail
-          sudo apt-get update
-          sudo apt-get install -y jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Fetch API data and create widget
+      - name: Build widget
         run: |
           set -euo pipefail
           IFS=$'\n\t'
 
           json=$(curl -s "$NOMAD_URL")
-
-          if [ -z "$json" ] || ! echo "$json" | jq empty > /dev/null 2>&1; then
+          if [ -z "$json" ] || ! echo "$json" | jq empty >/dev/null 2>&1; then
             echo "Invalid or empty response from NOMAD_URL. Skipping widget update."
             exit 0
           fi
 
           currentCity=$(echo "$json" | jq -r 'try .location.now.city // "Unknown"')
           currentCountryCode=$(echo "$json" | jq -r 'try .location.now.country_code // ""')
-
           nextCity=$(echo "$json" | jq -r 'try .location.next.city // "Unknown"')
           nextCountryCode=$(echo "$json" | jq -r 'try .location.next.country_code // ""')
           nextStart=$(echo "$json" | jq -r 'try .location.next.date_start // ""')
           nextEnd=$(echo "$json" | jq -r 'try .location.next.date_end // ""')
-
           lastCity=$(echo "$json" | jq -r 'try .location.previous.city // "Unknown"')
           lastCountryCode=$(echo "$json" | jq -r 'try .location.previous.country_code // ""')
           lastStart=$(echo "$json" | jq -r 'try .location.previous.date_start // ""')
@@ -107,15 +101,23 @@ jobs:
 
       - name: Commit changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
+          GIT_COMMITTER_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
         run: |
           set -euo pipefail
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "$GIT_AUTHOR_NAME"
+          git config user.email "$GIT_AUTHOR_EMAIL"
+
           git add README.md
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "Update dynamic widget"
+
+          git commit \
+            -m "Update dynamic widget" \
+            -m "Co-authored-by: $GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>"
+
           git push
