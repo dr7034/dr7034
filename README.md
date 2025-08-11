@@ -53,9 +53,9 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Unknown,   
-**🛫 Next:** Unknown,  — *TBD*  
-**🛬 Last:** Unknown,  — *Unknown*
+**📍 Currently in:** Glasgow, UK  
+**🛫 Next:** Tenerife, ES — *Dec 23–29*  
+**🛬 Last:** Rhodes, GR — *Jun 27–5*
 
 ---
 
@@ -65,6 +65,4 @@ Open to:
 - **Distance traveled:** 295995 km / 183923 mi  
 - **Most visited city:** Glasgow United Kingdom (50 trips)  
 - **Longest stay:** Glasgow United Kingdom — 7080 days
-
-**🗺 Map:** [View Nomads Travel Map](https://url2og.com/?url=https%3A%2F%2Fnomads.com%2F%40danielreilly%3Fmap_only%3Dtrue%26key%3Db9ec566fe67015f63c7d6225ff9e5a4d)
 <!-- WIDGET_END -->
