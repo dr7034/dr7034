@@ -54,7 +54,7 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Tenerife, Canary Islands, ES — *Dec 23–29*  
+**🛫 Next:** Tenerife, ES — *Dec 23–29*  
 **🛬 Last:** Rhodes, GR — *Jun 27–5*
 
 ---
