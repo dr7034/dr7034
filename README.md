@@ -4,10 +4,10 @@ I’m Daniel, an engineering leader who scales teams, platforms, and execution. 
 
 ### What I Bring
 
-- **Architectural Clarity at Delivery Speed**  
+- **Architectural Clarity at Speed**  
   I define clean interfaces and technical boundaries without slowing execution, enabling teams to ship quickly without accruing technical debt.
 
-- **Leadership That Scales Teams and Systems**  
+- **Leadership That Scales Teams**  
   I build high-trust engineering cultures where sustainable velocity, resilience, and ownership are defaults.
 
 - **Strategic Partnership**  
