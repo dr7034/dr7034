@@ -54,7 +54,7 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Lanzarote, ES — *Dec 23–29*  
+**🛫 Next:** Lanzarote, Canary Islands, ES — *Dec 23–29*  
 **🛬 Last:** Rhodes, GR — *Jun 27–5*
 
 ---
@@ -64,5 +64,5 @@ Open to:
 - **Cities visited:** 41  
 - **Distance traveled:** 295995 km / 183923 mi  
 - **Most visited city:** Glasgow United Kingdom (50 trips)  
-- **Longest stay:** Glasgow United Kingdom — 7098 days
+- **Longest stay:** Glasgow United Kingdom — 7099 days
 <!-- WIDGET_END -->
