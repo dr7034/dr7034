@@ -54,7 +54,7 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Lanzarote, Canary Islands, ES — *Dec 23–29*  
+**🛫 Next:** Lanzarote, ES — *Dec 23–29*  
 **🛬 Last:** Rhodes, GR — *Jun 27–5*
 
 ---
