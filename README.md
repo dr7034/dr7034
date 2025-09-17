@@ -54,7 +54,7 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Lanzarote, ES — *Dec 23–29*  
+**🛫 Next:** Madrid, ES — *Nov 14–17*  
 **🛬 Last:** Rhodes, GR — *Jun 27–5*
 
 ---
