@@ -53,9 +53,9 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Madrid, ES  
+**📍 Currently in:** Unknown,   
 **🛫 Next:** Gran Canaria, ES — *Dec 23–29*  
-**🛬 Last:** Glasgow, UK — *Jul 6–14*
+**🛬 Last:** Unknown,  — *Unknown*
 
 ---
 
