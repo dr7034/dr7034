@@ -1,25 +1,27 @@
-## Hello 👋
+## Daniel Reilly
 
-I’m Daniel, an engineering leader who scales teams, platforms, and execution. I own technical direction, architect for growth, and remove the bottlenecks that slow delivery. My focus is building systems and cultures where engineers move fast and grow while doing it.
+Technical Executive • Platform Architect • Operator
+
+I build high-velocity delivery systems and scale operating models across engineering, product, GTM and operations. I lead through systems, turning execution into strategy.
 
 ### What I Bring
 
-- **Architectural Clarity at Speed**  
-  I define clean interfaces and technical boundaries without slowing execution, enabling teams to ship quickly without accruing technical debt.
+- **Architectural Clarity Without Drag**  
+  I define clear boundaries, modular interfaces, and decision layers that let teams move fast without trading off long-term integrity.
 
 - **Leadership That Scales Teams**  
-  I build high-trust engineering cultures where sustainable velocity, resilience, and ownership are defaults.
+  I build cultures of trust, accountability, and autonomy, scaling teams through structured practice and measurable outcomes.
 
-- **Strategic Partnership**  
-  I operate as a technical counterpart to founders and execs, translating product bets into delivery systems and org design that hold at scale.
+- **Strategy Through Delivery**  
+  I partner with founders and execs to turn product vision into scalable operating models, bridging architecture, process, and talent.
 
 
 ### Areas of Focus
 
-- Designing teams that scale. Defining roles, rituals, and career frameworks that unlock IC performance  
-- Building delivery systems that support ownership, trust, and sustainable velocity  
-- Architecting modular platforms with strong developer experience and operational safety  
-- Driving visibility across cost, productivity, and engineering ROI to guide growth
+-	Team Architecture - Designing roles, rituals, and career frameworks that scale IC growth and leadership capacity.
+-	Delivery Systems - Building reliable, low-friction workflows that sustain velocity, ownership, and trust.
+-	Platform Design - Architecting modular systems with strong developer experience and operational safety baked in.
+-	Engineering ROI - Driving visibility into cost, productivity, and outcomes to guide investment and growth.
 
 ### Writing
 
@@ -28,7 +30,6 @@ I publish essays on engineering leadership, system design, and delivery operatio
 ### Frameworks and Tooling
 
 Explore my leadership and engineering frameworks in [Eng Team Blueprint](https://github.com/dr7034/eng-team-blueprint). For product-market fit validation tools I use in fractional CTO engagements, see [Validation Engine](https://github.com/dr7034/validation-engine).
-
 
 ---
 
