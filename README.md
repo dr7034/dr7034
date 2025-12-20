@@ -44,7 +44,7 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Gran Canaria, Canary Islands, ES — *Dec 22–28*  
+**🛫 Next:** Gran Canaria, ES — *Dec 22–28*  
 **🛬 Last:** Madrid, ES — *Nov 14–17*
 
 ---
