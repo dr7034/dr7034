@@ -43,7 +43,7 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Gran Canaria, ES  
+**📍 Currently in:** Gran Canaria, Canary Islands, ES  
 **🛫 Next:** Glasgow, UK — *Dec 28–17*  
 **🛬 Last:** Madrid, ES — *Nov 14–17*
 
@@ -54,5 +54,5 @@ Open to:
 - **Cities visited:** 44  
 - **Distance traveled:** 302648 km / 188057 mi  
 - **Most visited city:** Glasgow United Kingdom (51 trips)  
-- **Longest stay:** Glasgow United Kingdom — 10854 days
+- **Longest stay:** Glasgow United Kingdom — 10855 days
 <!-- WIDGET_END -->
