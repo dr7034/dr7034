@@ -45,7 +45,7 @@ Open to:
 
 **📍 Currently in:** Gran Canaria, ES  
 **🛫 Next:** Glasgow, UK — *Dec 28–17*  
-**🛬 Last:** Madrid, ES — *Nov 14–17*
+**🛬 Last:** Glasgow, UK — *Nov 17–23*
 
 ---
 
