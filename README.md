@@ -44,7 +44,7 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Phoenix, US — *Jan 17–22*  
+**🛫 Next:** Phoenix, US — *Jan 17–24*  
 **🛬 Last:** Gran Canaria, Canary Islands, ES — *Dec 22–28*
 
 ---
