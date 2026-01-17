@@ -43,16 +43,16 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Phoenix, US — *Jan 17–24*  
-**🛬 Last:** Gran Canaria, Canary Islands, ES — *Dec 22–28*
+**📍 Currently in:** Phoenix, US  
+**🛫 Next:** Glasgow, UK — *Jan 24–4*  
+**🛬 Last:** Glasgow, UK — *Dec 28–17*
 
 ---
 
 **🧭 Stats**  
 - **Countries visited:** 12  
 - **Cities visited:** 44  
-- **Distance traveled:** 305859 km / 190052 mi  
+- **Distance traveled:** 313837 km / 195010 mi  
 - **Most visited city:** Glasgow United Kingdom (52 trips)  
 - **Longest stay:** Glasgow United Kingdom — 10875 days
 <!-- WIDGET_END -->
