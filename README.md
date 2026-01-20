@@ -43,7 +43,7 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Phoenix, US  
+**📍 Currently in:** Phoenix, AZ, US  
 **🛫 Next:** Glasgow, UK — *Jan 24–4*  
 **🛬 Last:** Glasgow, UK — *Dec 28–17*
 
