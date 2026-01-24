@@ -43,16 +43,16 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Phoenix, US  
-**🛫 Next:** Glasgow, UK — *Jan 24–4*  
-**🛬 Last:** Glasgow, UK — *Dec 28–17*
+**📍 Currently in:** Glasgow, UK  
+**🛫 Next:** Santorini, GR — *Apr 4–11*  
+**🛬 Last:** Phoenix, AZ, US — *Jan 17–24*
 
 ---
 
 **🧭 Stats**  
 - **Countries visited:** 12  
 - **Cities visited:** 44  
-- **Distance traveled:** 313837 km / 195010 mi  
-- **Most visited city:** Glasgow United Kingdom (52 trips)  
+- **Distance traveled:** 321816 km / 199967 mi  
+- **Most visited city:** Glasgow United Kingdom (53 trips)  
 - **Longest stay:** Glasgow United Kingdom — 10875 days
 <!-- WIDGET_END -->
