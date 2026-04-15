@@ -43,16 +43,16 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Santorini, GR  
+**📍 Currently in:** Glasgow, UK  
 **🛫 Next:** Unknown,  — *TBD*  
-**🛬 Last:** Glasgow, UK — *Jan 24–4*
+**🛬 Last:** Santorini, GR — *Apr 4–11*
 
 ---
 
 **🧭 Stats**  
 - **Countries visited:** 12  
 - **Cities visited:** 45  
-- **Distance traveled:** 323691 km / 201132 mi  
-- **Most visited city:** Glasgow United Kingdom (53 trips)  
-- **Longest stay:** Glasgow United Kingdom — 10945 days
+- **Distance traveled:** 326794 km / 203060 mi  
+- **Most visited city:** Glasgow United Kingdom (54 trips)  
+- **Longest stay:** Glasgow United Kingdom — 10950 days
 <!-- WIDGET_END -->
