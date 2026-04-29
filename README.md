@@ -44,7 +44,7 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Unknown,  — *TBD*  
+**🛫 Next:** Donegal, IE — *May 1–3*  
 **🛬 Last:** Santorini, GR — *Apr 4–11*
 
 ---
