@@ -43,16 +43,16 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Donegal, IE — *May 1–3*  
-**🛬 Last:** Santorini, GR — *Apr 4–11*
+**📍 Currently in:** Donegal, IE  
+**🛫 Next:** Glasgow, UK — *May 4–18*  
+**🛬 Last:** Glasgow, UK — *Apr 11–1*
 
 ---
 
 **🧭 Stats**  
 - **Countries visited:** 12  
-- **Cities visited:** 45  
-- **Distance traveled:** 326794 km / 203060 mi  
+- **Cities visited:** 46  
+- **Distance traveled:** 327073 km / 203234 mi  
 - **Most visited city:** Glasgow United Kingdom (54 trips)  
 - **Longest stay:** Glasgow United Kingdom — 10965 days
 <!-- WIDGET_END -->
