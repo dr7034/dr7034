@@ -43,9 +43,9 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Donegal, IE  
+**📍 Currently in:** Unknown,   
 **🛫 Next:** Glasgow, UK — *May 4–18*  
-**🛬 Last:** Glasgow, UK — *Apr 11–1*
+**🛬 Last:** Unknown,  — *Unknown*
 
 ---
 
