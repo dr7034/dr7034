@@ -43,9 +43,9 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Glasgow, UK  
+**📍 Currently in:** Unknown,   
 **🛫 Next:** Barcelona, ES — *Jun 19–21*  
-**🛬 Last:** Donegal, IE — *May 1–3*
+**🛬 Last:** Unknown,  — *Unknown*
 
 ---
 
