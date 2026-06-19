@@ -43,16 +43,16 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Unknown,   
-**🛫 Next:** Barcelona, ES — *Jun 19–21*  
-**🛬 Last:** Unknown,  — *Unknown*
+**📍 Currently in:** Barcelona, ES  
+**🛫 Next:** Glasgow, UK — *Jun 22–28*  
+**🛬 Last:** Glasgow, UK — *May 4–18*
 
 ---
 
 **🧭 Stats**  
 - **Countries visited:** 12  
 - **Cities visited:** 46  
-- **Distance traveled:** 327352 km / 203407 mi  
+- **Distance traveled:** 329028 km / 204448 mi  
 - **Most visited city:** Glasgow United Kingdom (55 trips)  
 - **Longest stay:** Glasgow United Kingdom — 11010 days
 <!-- WIDGET_END -->
