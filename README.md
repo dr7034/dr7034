@@ -43,9 +43,9 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Barcelona, ES  
+**📍 Currently in:** Unknown,   
 **🛫 Next:** Glasgow, UK — *Jun 22–28*  
-**🛬 Last:** Glasgow, UK — *May 4–18*
+**🛬 Last:** Unknown,  — *Unknown*
 
 ---
 
