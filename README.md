@@ -1,27 +1,18 @@
 ## Daniel Reilly
 
-Technical Executive • Platform Architect • Operator
+Technical Executive • CTO • Operator
 
-I build high-velocity delivery systems and scale operating models across engineering, product, GTM and operations. I lead through systems, turning execution into strategy.
+Most companies misdiagnose their problems.
 
-### What I Bring
+Technology is rarely the constraint. More often it’s unclear ownership, weak operating models, poor feedback loops, or decisions being made without enough context. Software amplifies those problems just as easily as it solves them.
 
-- **Architectural Clarity Without Drag**  
-  I define clear boundaries, modular interfaces, and decision layers that let teams move fast without trading off long-term integrity.
+I’ve spent my career working where technology and operations depend on each other. From helping build a digital pharmacy from the ground up as founding engineer and CTO, to leading technology for a US marketplace business where commercial performance is inseparable from the systems behind it.
 
-- **Leadership That Scales Teams**  
-  I build cultures of trust, accountability, and autonomy, scaling teams through structured practice and measurable outcomes.
+I spend very little of my week doing what most people think a CTO does. My role is understanding where a business is constrained, designing systems that remove those constraints, and giving teams the information they need to make better decisions.
 
-- **Strategy Through Delivery**  
-  I partner with founders and execs to turn product vision into scalable operating models, bridging architecture, process, and talent.
+AI has changed how I work, but not what I optimise for. I use it to increase organisational capability, capture knowledge, improve decision quality and remove repetitive work so people can focus on the problems that actually require judgement.
 
-
-### Areas of Focus
-
--	Team Architecture - Designing roles, rituals, and career frameworks that scale IC growth and leadership capacity.
--	Delivery Systems - Building reliable, low-friction workflows that sustain velocity, ownership, and trust.
--	Platform Design - Architecting modular systems with strong developer experience and operational safety baked in.
--	Engineering ROI - Driving visibility into cost, productivity, and outcomes to guide investment and growth.
+I’m interested in businesses where technology isn’t a department—it is part of how the company operates, learns and scales.
 
 ### Writing
 
