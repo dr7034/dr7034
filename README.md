@@ -14,7 +14,7 @@ Current interests:
 
 - Marketplace and operational platforms
 
-- Metrics that drive decisions, not reporting
+- Metrics and Reporting that drive decisions
 
 - Platform architecture and cloud infrastructure
 
