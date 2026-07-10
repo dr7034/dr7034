@@ -2,17 +2,25 @@
 
 Technical Executive • CTO • Operator
 
-Most companies misdiagnose their problems.
+I build technology and operating systems for businesses that are scaling.
 
-Technology is rarely the constraint. More often it’s unclear ownership, weak operating models, poor feedback loops, or decisions being made without enough context. Software amplifies those problems just as easily as it solves them.
+Most of my work isn't writing software. It's improving how organisations make decisions, execute and learn. Technology is one lever.
 
-I’ve spent my career working where technology and operations depend on each other. From helping build a digital pharmacy from the ground up as founding engineer and CTO, to leading technology for a US marketplace business where commercial performance is inseparable from the systems behind it.
+Current interests:
 
-I spend very little of my week doing what most people think a CTO does. My role is understanding where a business is constrained, designing systems that remove those constraints, and giving teams the information they need to make better decisions.
+- AI as organisational leverage
 
-AI has changed how I work, but not what I optimise for. I use it to increase organisational capability, capture knowledge, improve decision quality and remove repetitive work so people can focus on the problems that actually require judgement.
+- Operating systems for engineering teams
 
-I’m interested in businesses where technology isn’t a department—it is part of how the company operates, learns and scales.
+- Marketplace and operational platforms
+
+- Metrics that drive decisions, not reporting
+
+- Platform architecture and cloud infrastructure
+
+Currently:
+
+- CTO @ Steady Install
 
 ### Writing
 
