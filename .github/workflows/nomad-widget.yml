@@ -72,8 +72,8 @@ jobs:
           echo "#### 🌍 Travel Summary" > widget.md
           echo "" >> widget.md
           echo "**📍 Currently in:** ${currentCity:-Unknown}, ${currentCountryCode}  " >> widget.md
-          echo "**🛫 Next:** ${nextCity:-Unknown}, ${nextCountryCode} — *$nextRange*  " >> widget.md
-          echo "**🛬 Last:** ${lastCity:-Unknown}, ${lastCountryCode} — *$lastRange*" >> widget.md
+          echo "**🛫 Next:** ${nextCity:-Unknown}, ${nextCountryCode}" >> widget.md
+          echo "**🛬 Last:** ${lastCity:-Unknown}, ${lastCountryCode}" >> widget.md
           echo "" >> widget.md
           echo "---" >> widget.md
           echo "" >> widget.md
