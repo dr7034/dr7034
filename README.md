@@ -43,8 +43,8 @@ Open to:
 #### 🌍 Travel Summary
 
 **📍 Currently in:** Glasgow, UK  
-**🛫 Next:** Portimão, PT — *Jul 28–4*  
-**🛬 Last:** Barcelona, ES — *Jun 19–21*
+**🛫 Next:** Portimão, PT
+**🛬 Last:** Barcelona, ES
 
 ---
 
