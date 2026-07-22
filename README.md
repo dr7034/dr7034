@@ -53,5 +53,5 @@ Open to:
 - **Cities visited:** 46  
 - **Distance traveled:** 330704 km / 205490 mi  
 - **Most visited city:** Glasgow United Kingdom (56 trips)  
-- **Longest stay:** Glasgow United Kingdom — 11040 days
+- **Longest stay:** Glasgow United Kingdom — 11041 days
 <!-- WIDGET_END -->
