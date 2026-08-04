@@ -42,9 +42,9 @@ Open to:
 <!-- WIDGET_START -->
 #### 🌍 Travel Summary
 
-**📍 Currently in:** Portimão, PT  
+**📍 Currently in:** Unknown,   
 **🛫 Next:** Glasgow, UK
-**🛬 Last:** Glasgow, UK
+**🛬 Last:** Unknown, 
 
 ---
 
