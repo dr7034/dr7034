@@ -1,42 +1,47 @@
-## Daniel Reilly
 
-Technical Executive • CTO • Operator
+# Daniel Reilly
 
-I build technology and operating systems for businesses that are scaling.
+**Technical Executive · CTO · Operator**
 
-Most of my work isn't writing software. It's improving how organisations make decisions, execute and learn. Technology is one lever.
+Glasgow.
 
-Current interests:
+I work across technology, operations and the wider business.
 
-- AI as organisational leverage
+Sometimes that's architecture and code. Sometimes it's pricing, support, process, reporting, hiring, automation or working out why something that looks fine on paper clearly isn't.
 
-- Operating systems for engineering teams
+Currently CTO at **Steady Install**.
 
+I still write code and stay close to the systems. I've just been doing this long enough to know that software isn't always the answer.
+
+## Things I'm interested in
+
+- AI where it actually removes work or helps people make better decisions
+- Engineering teams and how they really operate
 - Marketplace and operational platforms
-
-- Metrics and Reporting that drive decisions
-
+- Metrics and reporting that are actually useful
 - Platform architecture and cloud infrastructure
+- The awkward bits between product, engineering, operations and the rest of the business
 
-Currently:
+## Writing
 
-- CTO @ Steady Install
+I occasionally write about things I'm working on or thinking about at [blog.danielreilly.dev ↗](https://blog.danielreilly.dev/).
 
-### Writing
+## Stuff I've put on GitHub
 
-I publish essays on engineering leadership, system design, and delivery operations at [blog.danielreilly.dev ↗](https://blog.danielreilly.dev).
+[**Eng Team Blueprint**](https://github.com/dr7034/eng-team-blueprint)  
+Engineering management practices and tools I've picked up and used over the years.
 
-### Frameworks and Tooling
+[**Validation Engine**](https://github.com/dr7034/validation-engine)  
+Some tooling for working through product ideas and early validation.
 
-Explore my leadership and engineering frameworks in [Eng Team Blueprint](https://github.com/dr7034/eng-team-blueprint). For product-market fit validation tools I use in fractional CTO engagements, see [Validation Engine](https://github.com/dr7034/validation-engine).
-
----
-
-### Availability
+## Availability
 
 Open to:
-- **Fractional CTO** for seed to Series B  
+
+- **Fractional CTO** work with seed to Series B companies
 - **Short-term architecture audits or delivery stabilisation**
+
+If something's a mess and you need somebody to get properly into it, that's usually more interesting to me than another advisory call.
 
 ---
 <!-- WIDGET_START -->
