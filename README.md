@@ -15,12 +15,12 @@ I still write code and stay close to the systems. I've just been doing this long
 
 ## Things I'm interested in
 
-- AI where it actually removes work or helps people make better decisions
-- Engineering teams and how they really operate
-- Marketplace and operational platforms
-- Metrics and reporting that are actually useful
+- AI that gets rid of unnecessary work or helps people make better decisions
+- How engineering teams actually work day to day
+- Marketplace and operational systems
+- Useful metrics and reporting
 - Platform architecture and cloud infrastructure
-- The awkward bits between product, engineering, operations and the rest of the business
+- Where product, engineering and operations meet
 
 ## Writing
 
@@ -39,6 +39,7 @@ Some tooling for working through product ideas and early validation.
 Open to:
 
 - **Fractional CTO** work with seed to Series B companies
+- **Non-Exec** work to help create operational and digital change
 - **Short-term architecture audits or delivery stabilisation**
 
 If something's a mess and you need somebody to get properly into it, that's usually more interesting to me than another advisory call.
