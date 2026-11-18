@@ -50,14 +50,14 @@ If something's a mess and you need somebody to get properly into it, that's usua
 
 **📍 Currently in:** Glasgow, UK  
 **🛫 Next:** Unknown, 
-**🛬 Last:** Portimão, PT
+**🛬 Last:** Munich, DE
 
 ---
 
 **🧭 Stats**  
-- **Countries visited:** 12  
-- **Cities visited:** 47  
-- **Distance traveled:** 334917 km / 208108 mi  
-- **Most visited city:** Glasgow United Kingdom (57 trips)  
-- **Longest stay:** Glasgow United Kingdom — 11146 days
+- **Countries visited:** 13  
+- **Cities visited:** 48  
+- **Distance traveled:** 353630 km / 219736 mi  
+- **Most visited city:** Glasgow United Kingdom (59 trips)  
+- **Longest stay:** Glasgow United Kingdom — 11136 days
 <!-- WIDGET_END -->
