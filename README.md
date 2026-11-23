@@ -56,8 +56,8 @@ If something's a mess and you need somebody to get properly into it, that's usua
 
 **🧭 Stats**  
 - **Countries visited:** 13  
-- **Cities visited:** 48  
-- **Distance traveled:** 353630 km / 219736 mi  
-- **Most visited city:** Glasgow United Kingdom (59 trips)  
-- **Longest stay:** Glasgow United Kingdom — 11141 days
+- **Cities visited:** 47  
+- **Distance traveled:** 353072 km / 219389 mi  
+- **Most visited city:** Glasgow United Kingdom (58 trips)  
+- **Longest stay:** Glasgow United Kingdom — 11144 days
 <!-- WIDGET_END -->
